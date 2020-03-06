@@ -1,5 +1,5 @@
 <template>
-  <h2>Страница чата: {{user.name}}</h2>
+  <h1>Страница чата: {{user.name}}</h1>
 </template>
 
 <script>
