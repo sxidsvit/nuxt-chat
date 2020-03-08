@@ -1,5 +1,9 @@
 <template>
-  <h1>Страница чата: {{user.name}}</h1>
+  <div>
+    <ul>
+      <li v-for="m in messages" :key="m.text">{{m.text}}</li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -11,6 +15,6 @@ export default {
       title: `Комната ${this.user.room}`
     }
   },
-  computed: mapState(['user'])
+  computed: mapState(['user', 'messages'])
 }
 </script>
