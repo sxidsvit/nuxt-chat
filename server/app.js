@@ -1,6 +1,8 @@
-var app = require('express')();
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const users = require('./users')()
+
 const m = (name, text, id) => ({ name, text, id })
 
 io.on('connection', socket => {
@@ -10,22 +12,31 @@ io.on('connection', socket => {
       return cb('Данные некорректны')
     }
     socket.join(data.room)
+
+    users.remove(socket.id)
+    users.add({
+      id: socket.id,
+      name: data.name,
+      room: data.room
+    })
+
     cb({ userID: socket.id })
     socket.emit('newMessage', m('admin', `Добро пожаловать ${data.name}`))
-    socket.emit('newMessage', m('tester', `Добро пожаловать `))
     socket.broadcast
       .to(data.room)
       .emit('newMessage', m('admin', `Пользователь ${data.name} зашел`))
   })
 
-  socket.on('createMessage', data => {
-    setTimeout(() => {
-      socket.emit('newMessage', { text: data.text + " SERVER", name: data.id })
-    }, 500);
-  })
+  socket.on('createMessage', (data, cb) => {
+    if (!data.text) {
+      return cb('Сообщение не может быть пустым')
+    }
 
-  socket.emit('newMessage', {
-    text: 'WHAT - server said'
+    const user = users.get(data.id)
+    if (user) {
+      io.to(user.room).emit('newMessage', m(user.name, data.text, data.id))
+    }
+    cb()
   })
 
 })
