@@ -1,22 +1,12 @@
-# chat
+## Nuxt: "Простой чат"
 
-> My premium Nuxt.js project
+**Цель:** Создать на основе Nuxt, socket.io и express простой чат
 
-## Build Setup
+**Задачи:**
 
-``` bash
-# install dependencies
-$ npm install
+1. Глубже понять и осмыслить, как устроен и как разрабатывается реальный Nuxt-проект 
+2. Получить практический опыт работы с Nuxt, socket.io и express
+3. Совершенствование навыков работать с vuetify
+4. Работа с онлайн документацией
 
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Спасибо Владилену Минину [за предоставленные обучающий материалы](https://www.youtube.com/playlist?list=PLqKQF2ojwm3ktTvzYonkjMp7khGwvdp-n)
