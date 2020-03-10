@@ -1,7 +1,12 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8>
-      <v-card min-width="400" class="mt-5">
+      <v-card min-width="400" class="mt-12">
+        <v-snackbar v-model="snackbar" top>
+          {{ message }}
+          <v-btn dark text @click="snackbar = false" color="primary">Закрыть</v-btn>
+        </v-snackbar>
+
         <v-card-title>
           <h2>Nuxt чат</h2>
         </v-card-title>
@@ -33,6 +38,8 @@ export default {
     }
   },
   data: () => ({
+    snackbar: false,
+    message: '',
     valid: true,
     name: '',
     lazy: false,
@@ -43,6 +50,16 @@ export default {
     room: '',
     roomRules: [v => !!v || 'Введите название комнаты']
   }),
+  mounted() {
+    const { message } = this.$route.query
+    console.log('this.$route.query: ', this.$route.query)
+    if (message === 'noUser') {
+      this.message = 'Введите ваше имя и комнату'
+    } else if (message === 'leftChat') {
+      this.message = 'Вы вышли из чата'
+    }
+    this.snackbar = !!this.message
+  },
   methods: {
     ...mapMutations(['setUser']),
     submit() {

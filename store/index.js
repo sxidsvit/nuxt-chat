@@ -18,7 +18,6 @@ export const mutations = {
     state.messages.push(message)
   },
   SOCKET_updateUsers(state, users) {
-    console.log('users: ', users);
     state.users = users
   }
 }
